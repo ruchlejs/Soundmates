@@ -15,14 +15,14 @@ router.post('/users', user.newUser)
 router.put('/users', middleware.undefined)
 router.delete('/users', middleware.undefined)
 
-// Actions possible sur un user  spécifque
+// Actions possible sur un user spécifque
 router.get('/users/:id', user.getUserByID)
 router.post('/users/:id', middleware.undefined)
-router.put('/users/:id', user.updateUser)
-router.delete('/users/:id', user.deleteUser)
+router.put('/users/:id', middleware.undefined)
+router.delete('/users/:id', middleware.undefined)
 
 // Actions permettant d'obtenir l'username à partir du token d'accès
-router.get('/whoami',user.whoAmI)
+router.get('/whoami',middleware.userExist)
 router.post('/whoami',middleware.undefined)
 router.put('/whoami',middleware.undefined)
 router.delete('/whoami',middleware.undefined)
@@ -41,14 +41,14 @@ router.delete('/register', middleware.undefined)
 
 // Actions permettant de changer le nom d'user
 router.get('/:user/settings/name', middleware.undefined)
-router.post('/:user/settings/name', user.changeName)
-router.put('/:user/settings/name', user.changeName)
+router.post('/:user/settings/name', middleware.undefined)
+router.put('/:user/settings/name', middleware.userExist,user.changeName)
 router.delete('/:user/settings/name', middleware.undefined)
 
 // Actions permettant de changer l'age d'un user
 router.get('/:user/settings/age', middleware.undefined)
-router.post('/:user/settings/age', user.changeAge)
-router.put('/:user/settings/age', user.changeAge)
+router.post('/:user/settings/age', middleware.undefined)
+router.put('/:user/settings/age', middleware.userExist,user.changeAge)
 router.delete('/:user/settings/age', middleware.undefined)
 
 //admin specific routes

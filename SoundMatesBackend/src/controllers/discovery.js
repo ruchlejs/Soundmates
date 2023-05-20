@@ -74,21 +74,6 @@ async function compatibilityScore(user1, user2) {
 
 module.exports = {
   async getNextProfile(req, res) {
-    if (!req.headers["x-access-token"]) {
-      res.status(status.FORBIDDEN).json({ msg: "No token specified" })
-    }
-    const token = req.headers["x-access-token"]
-    if (!jws.verify(token, "HS256", TOKENSECRET)) {
-      res.status(status.NOT_ACCEPTABLE).json({ msg: "Invalid Token" })
-    }
-    const username = jws.decode(token).payload
-
-    const user = await userModel.findOne({ where: { username: username } })
-    if (!user) {
-      res.status(status.NOT_FOUND).json({ msg: "User not found" })
-      return
-    }
-
     const unreviewedProfiles = await user.getUnreviewedProfiles()
     if (unreviewedProfiles.length == 0) {
       res.status(status.NO_CONTENT).json({ msg: "No more profiles to review" })
@@ -127,12 +112,6 @@ module.exports = {
   },
 
   async handleLikeOrDislike(req, res) {
-    if (!req.headers["x-access-token"])
-      throw new CodeError("No token specified", status.FORBIDDEN)
-    const token = req.headers["x-access-token"]
-    if (!jws.verify(token, "HS256", TOKENSECRET)) {
-      throw new CodeError("Invalid Token", status.FORBIDDEN)
-    }
     const username = jws.decode(token).payload
 
     const data = JSON.parse(req.body.data)
@@ -180,13 +159,5 @@ module.exports = {
         msg: "Profile ID not found in the unreviwed profiles for this account",
       })
     }
-  },
-
-  async undefined(req, res) {
-    // #swagger.tags = ['Users']
-    // #swagger.summary = "doesn't exist"
-    res
-      .status(status.METHOD_NOT_ALLOWED)
-      .json({ status: false, message: "Undefined Request" })
   },
 }

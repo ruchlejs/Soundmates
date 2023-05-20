@@ -8,9 +8,6 @@ const { TOKENSECRET } = process.env
 
 module.exports = {
   async getUsers(req, res) {
-    // TODO : verify if the user that wants to get All users is an admin (using token...)
-    // #swagger.tags = ['Users']
-    // #swagger.summary = 'Get All users'
     const data = await userModel.findAll({
       attributes: [
         "id",
@@ -90,26 +87,6 @@ module.exports = {
     }
   },
 
-  async updateUser(req, res) {
-    // #swagger.tags = ['Users']
-    // #swagger.summary = 'Update User'
-    // #swagger.parameters['obj'] = { in: 'body', schema: { $name: 'John Doe', $email: 'John.Doe@acme.com', $password: '1m02P@SsF0rt!'}}
-    if (!has(req.body, ["data"]))
-      throw new CodeError("You must specify the data", status.BAD_REQUEST)
-    if (!has(JSON.parse(req.body.data), ["username"]))
-      throw new CodeError("You must specify the username", status.BAD_REQUEST)
-    const username = JSON.parse(req.body.data)
-    await userModel.update(username)
-    res.json({ status: true, message: "User updated" })
-  },
-  async deleteUser(req, res) {
-    // #swagger.tags = ['Users']
-    // #swagger.summary = 'Delete User'
-    // #swagger.response[200] = { description: 'User deleted' }
-    await userModel.destroy({ where: {} })
-    res.json({ status: true, message: "User deleted" })
-  },
-
   async getToken(req, res) {
     // #swagger.tags = ['Users']
     // #swagger.summary = 'Get Token'
@@ -130,33 +107,10 @@ module.exports = {
   },
 
   async whoAmI(req, res) {
-    // #swagger.tags = ['Users']
-    // #swagger.summary = 'Who Am I'
-    // 1) vérifier que le token est dans x-access-token
-    const token = req.headers["x-access-token"]
-    if (token == "")
-      throw new CodeError("no token in x-access-token", status.FORBIDDEN)
-    // 2) Verify jws
-    if (!jws.verify(token, "HS256", TOKENSECRET)) {
-      throw new CodeError("Invalid Token", status.FORBIDDEN)
-    }
-    // 3) verifier que l'utilisateur existe dans la base de données
-    const username = jws.decode(token).payload
-    const user = await userModel.findOne({ where: { username } })
-    if (!user) {
-      res
-        .status(status.FORBIDDEN)
-        .json({ status: false, message: "User not found" })
-      throw new CodeError("User not found", status.FORBIDDEN)
-    }
-
     res.status(status.OK).json({ status: true, message: "Token decoded", username })
   },
 
     async getUserByID(req,res){
-      console.log("getUserByID")
-      // #swagger.tags = ['Users']
-      // #swagger.summary = 'Get User By ID'
       const id = req.params.id
       console.log(id)
       const user = await userModel.findOne({ where: {id: id}})
@@ -212,22 +166,7 @@ module.exports = {
 
   //functions related to the age of a user
   async changeName(req, res) {
-    // #swagger.tags = ['Users']
-    // #swagger.summary = 'Change Name'
-
-    if (!req.headers["x-access-token"])
-      throw new CodeError("No token specified", status.FORBIDDEN)
-    const token = req.headers["x-access-token"]
-    if (!jws.verify(token, "HS256", TOKENSECRET)) {
-      throw new CodeError("Invalid Token", status.FORBIDDEN)
-    }
     const username = req.params.user
-    if (username != jws.decode(token).payload)
-      throw new CodeError(
-        "You are not allowed to change this user",
-        status.FORBIDDEN
-      )
-
     console.log(username)
     const parsedRequest = JSON.parse(req.body.data)
     const name = parsedRequest.name
@@ -254,22 +193,7 @@ module.exports = {
   },
 
   async changeAge(req, res) {
-    // #swagger.tags = ['Users']
-    // #swagger.summary = 'Change Name'
-
-    if (!req.headers["x-access-token"])
-      throw new CodeError("No token specified", status.FORBIDDEN)
-    const token = req.headers["x-access-token"]
-    if (!jws.verify(token, "HS256", TOKENSECRET)) {
-      throw new CodeError("Invalid Token", status.FORBIDDEN)
-    }
     const username = req.params.user
-    if (username != jws.decode(token).payload)
-      throw new CodeError(
-        "You are not allowed to change this user",
-        status.FORBIDDEN
-      )
-
     console.log(username)
     const parsedRequest = JSON.parse(req.body.data)
     const age = parsedRequest.age

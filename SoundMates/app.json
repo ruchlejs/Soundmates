@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "SoundMates",
+    "slug": "SoundMates",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/SansLeNom.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/SoundMates.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/SoundMates.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+/SoundMates/node_modules/
+/SoundMates/.expo/
+/SoundMates/dist/
+/SoundMates/npm-debug.*
+/SoundMates/*.jks
+/SoundMates/*.p8
+/SoundMates/*.p12
+/SoundMates/*.key
+/SoundMates/*.mobileprovision
+/SoundMates/*.orig.*
+/SoundMates/web-build/
+/SoundMatesBackend/node_modules/
+SoundMatesBackend/src/.prettierrc
+.vscode/
+.prettierrc
+node_modules
+
+# macOS
+.DS_Store
+
+# Temporary files created by Metro to check the health of the file watcher
+.metro-health-check*
+
+*.log
+*.sqlite

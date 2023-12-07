@@ -1,6 +1,6 @@
-# SoundMates : Backend
+# SoundMates: Backend
 
-## Liste des modules utilisés
+## List of Used Modules
  - express
  - cookie-parser
  - express-session
@@ -21,7 +21,7 @@
  - express-custom-error
  - multer
 
-## Commande pour installer tout les modules :
+## Command to install all the modules at once:
 
     npm install express -save && npm install cookie-parser -save && npm install express-session -save && npm install body-parser -save && npm install nodemon && npm install jws && npm install bcrypt && npm install has-keys && npm install sqlite3 && npm install mandatoryenv && npm install sequelize && npm install http-status && npm install swagger-ui-express && npm install rotating-file-stream && npm install morgan && npm install helmet && npm install cors && npm install express-custom-error && npm install --save multer
 

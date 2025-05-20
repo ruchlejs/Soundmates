@@ -1,6 +1,8 @@
-# SoundMates: Backend
+# 🎵 SoundMates: Backend
 
-## List of Used Modules
+The SoundMates backend allows users to create an account, select tags that reflect their profile, and get a list of unseen profiles to match with.
+
+## 🧩 Requirements
  - express
  - cookie-parser
  - express-session
@@ -21,7 +23,21 @@
  - express-custom-error
  - multer
 
-## Command to install all the modules at once:
-
-    npm install express -save && npm install cookie-parser -save && npm install express-session -save && npm install body-parser -save && npm install nodemon && npm install jws && npm install bcrypt && npm install has-keys && npm install sqlite3 && npm install mandatoryenv && npm install sequelize && npm install http-status && npm install swagger-ui-express && npm install rotating-file-stream && npm install morgan && npm install helmet && npm install cors && npm install express-custom-error && npm install --save multer
-
+### 📦 Install all the requirements:
+Run the following command to install everything in one go:
+```
+npm install express -save && npm install cookie-parser -save && npm install express-session -save && npm install body-parser -save && npm install nodemon && npm install jws && npm install bcrypt && npm install has-keys && npm install sqlite3 && npm install mandatoryenv && npm install sequelize && npm install http-status && npm install swagger-ui-express && npm install rotating-file-stream && npm install morgan && npm install helmet && npm install cors && npm install express-custom-error && npm install --save multer
+```
+## 🚀 How to Run:
+Start the server in production mode:
+```
+npm run start
+```
+Start the server in development mode (with hot-reloading):
+```
+npm run startdev
+```
+Run the test suite:
+```
+npm run test
+```
